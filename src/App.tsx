@@ -1,8 +1,11 @@
-import Routing from './routes/Routing';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Chats } from "./components/chats/Chats";
 
 function App() {
-    return <Routing />;
+	return (
+	<Chats/>
+	);
 }
 
 export default App;
