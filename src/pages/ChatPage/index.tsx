@@ -1,9 +1,9 @@
-import { Chats } from "../../components/chats/Chats";
+import { ChatWindow } from "../../components/chatWindow/ChatWindow";
 
 const ChatPage = () => {
 	return (
 		<>
-			<Chats />
+			<ChatWindow />
 		</>
 	);
 };
