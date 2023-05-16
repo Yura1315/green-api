@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import { Chats } from "./components/chats/Chats";
+import Routing from "./routes/Routing";
 
 function App() {
 	return (
-	<Chats/>
+	<Routing/>
 	);
 }
 
