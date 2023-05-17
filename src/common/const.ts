@@ -6,13 +6,7 @@ export const defaultAuth = {
 };
 
 
-export const defaultInstance = {
-    stateInstance: '',
-};
-
 export const initialState: IAuthContext = {
-    stateInstance: defaultInstance,
     auth: defaultAuth,
     setAuth: () => {},
-    setStateInstance: () => {},
 };
