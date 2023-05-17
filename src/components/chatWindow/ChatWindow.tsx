@@ -1,6 +1,5 @@
-import React from "react";
-import { Chats } from "../chats/Chats";
-import { ChatArea } from "../chatArea/ChatArea";
+import { Chats } from "./chats/Chats";
+import { ChatArea } from "./chatArea/ChatArea";
 import { ChatWindowWrapper } from "./style";
 
 export const ChatWindow = () => {
