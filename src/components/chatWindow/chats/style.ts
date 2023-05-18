@@ -6,7 +6,11 @@ export const ChatsWrapper = styled("div")({
 
 export const InputWrapper = styled("div")({
 	padding: "5px",
-	borderBottom: "1px solid #f0f2f5",
+	borderBottom: "1px solid #a0f2f5",
+	"& :hover": {
+		background: "#f0f2f5",
+		transitionDuration: '1s',
+	},
 });
 
 export const inputStyle = {
@@ -14,4 +18,6 @@ export const inputStyle = {
 	background: "#f0f2f5",
 	borderRadius: "5px",
 	padding: "10px",
-};
+	outline:'none',
+}
+

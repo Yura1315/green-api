@@ -13,7 +13,7 @@ export const UserDataWrapper = styled("div")({
 	flexDirection: "column",
 	fontSize: "12px",
 	borderBottom: "1px solid #f0f2f5",
-	"& :nth-child(1n)": {
+	"& :nth-of-type(1n)": {
 		margin: "5px",
 	},
 });
