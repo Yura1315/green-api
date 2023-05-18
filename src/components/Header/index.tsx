@@ -1,5 +1,5 @@
 import { HeaderWrapper, LogoWrapper, LogoText } from './style';
-import { ContentWrapper } from '../common/style';
+import { ContentWrapper } from '../../common/style';
 
 const Header = () => {
     return (
