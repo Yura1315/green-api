@@ -7,6 +7,7 @@ import { authContext } from '../../common/authContext';
 import { useNavigate } from 'react-router-dom';
 import { defaultAuth } from '../../common/const';
 import { AuthType } from '../../common/types';
+import { utilizeLocalStorage } from '../../utils/saveToLocalStorage';
 
 const Authorization = () => {
     const { auth, setAuth } = useContext(authContext);
@@ -17,13 +18,13 @@ const Authorization = () => {
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!value.apiTokenInstance || !value.idInstance) {
-            setError('Не верные данные, попробуйте снова');
+            setError('Поля не могут быть пустыми');
         } else {
             let url = `https://api.green-api.com/waInstance${value.idInstance}/getStateInstance/${value.apiTokenInstance}`;
             fetchApi(url)
                 .then((data) => {
-                    console.log(data);
                     if (data.stateInstance) {
+                        utilizeLocalStorage('user', value);
                         setAuth(value);
                     }
                 })
@@ -53,6 +54,8 @@ const Authorization = () => {
                     placeholder='apiTokenInstance'
                     value={value.apiTokenInstance}
                     handle={changeApiTokenInstance}
+                    // hanldeFocus={}
+                    // error={}
                 />
                 <Button variant='contained' size='large' type='submit'>
                     Авторизоваться

@@ -8,6 +8,8 @@ type InputFieldType = {
 };
 
 const InputField = ({ placeholder, value, handle }: InputFieldType) => {
+    const handleFocus = () => {};
+
     return <StyledInput placeholder={placeholder} value={value} onChange={handle} />;
 };
 
