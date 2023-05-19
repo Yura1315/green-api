@@ -1,14 +1,14 @@
-import { Avatar } from "@mui/material";
 import { ChatCardWrapper, UserDataWrapper } from "./style";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../../../common/authContext";
+
 interface CardProps {
 	id: string;
 }
 
 export const ChatCard = ({ id }: CardProps) => {
 	const { auth } = useContext(authContext);
-	const user:any = useRef({});
+	const [contact, setContact] = useState<any>([]);
 	useEffect(() => {
 		const test = JSON.stringify({ chatId: id });
 		fetch(
@@ -19,21 +19,26 @@ export const ChatCard = ({ id }: CardProps) => {
 			}
 		)
 			.then((response) => response.json())
-			.then((commits) => {
-				return user.current = commits
+			.then((data) => {
+				setContact((prevContact: any) => (prevContact = data));
 			});
 	}, [auth.apiTokenInstance, auth.idInstance, id]);
-
-	console.log(user.current);
-	
+	console.log(contact);
 	return (
 		<ChatCardWrapper>
-			<Avatar sx={{ margin: "20px" }}>{}</Avatar>
-			<img src={user.current.avatar} alt="user"  style={{width:'50px',height:'50px'}}/>
-			<UserDataWrapper>
-				<p>{}</p>
-				<p>{}</p>
-			</UserDataWrapper>
+			{contact ? (
+				<>
+					<img
+						src={contact.avatar || null}
+						alt={"Нет аватара"}
+						style={{ width: "50px", height: "50px", borderRadius: "10px",marginLeft:'15px' }}
+					/>
+					<UserDataWrapper>
+						<p>{contact.name}</p>
+						<p>{}</p>
+					</UserDataWrapper>
+				</>
+			) : null}
 		</ChatCardWrapper>
 	);
 };
