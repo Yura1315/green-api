@@ -1,22 +1,20 @@
 import Button from "@mui/material/Button";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../../common/authContext";
 import { fetchApi } from "../../../utils/fetchApi";
 import { ChatsWrapper, InputWrapper, inputStyle } from "./style";
 import { ChatCard } from "./chatCard/ChatCard";
 
 export const Chats = () => {
+	const [users, setUsers] = useState([]);
 	const { auth } = useContext(authContext);
-	const arr = useRef([]);
-	useEffect(() => {
-		let url = `https://api.green-api.com/waInstance${auth.idInstance}/getChats/${auth.apiTokenInstance}`;
+	let url = `https://api.green-api.com/waInstance${auth.idInstance}/getChats/${auth.apiTokenInstance}`;
+	useEffect(() => { 	
 		fetchApi(url).then((data) => {
-			return arr.current = data;
-			
+			setUsers((prevUsers) => (prevUsers = data));
 		});
-	}, [auth.apiTokenInstance, auth.idInstance]);
-
-	console.log(arr.current);
+	}, [url]);
+	console.log(users)
 	return (
 		<ChatsWrapper>
 			<InputWrapper>
@@ -27,13 +25,12 @@ export const Chats = () => {
 				></input>
 				<Button>Search</Button>
 			</InputWrapper>
-
-			{arr.current ? (
-				arr.current.map((user: any) => {
+			{users ? (
+				users.map((user: any) => {
 					return <ChatCard key={user.id} id={user.id} />;
 				})
 			) : (
-				<p>popka</p>
+				<p>Пусто</p>
 			)}
 		</ChatsWrapper>
 	);
