@@ -1,15 +1,16 @@
 import { ChangeEvent, useEffect, useContext, useState } from 'react';
 import { Button } from '@mui/material';
-import InputField from '../InputField';
 import { Form } from './style';
-import { fetchApi } from '../../utils/fetchApi';
+import { EFetchTypes, fetchApi } from '../../utils/fetchApi';
 import { authContext } from '../../common/authContext';
 import { useNavigate } from 'react-router-dom';
 import { defaultAuth } from '../../common/const';
 import { AuthType } from '../../common/types';
 import { utilizeLocalStorage } from '../../utils/saveToLocalStorage';
+import { ErrorText } from './ErrorText';
+import { InputField } from '../InputField';
 
-const Authorization = () => {
+export const Authorization = () => {
     const { auth, setAuth } = useContext(authContext);
     const [value, setValue] = useState<AuthType>(defaultAuth);
     const [error, setError] = useState<string>('');
@@ -20,16 +21,19 @@ const Authorization = () => {
         if (!value.apiTokenInstance || !value.idInstance) {
             setError('Поля не могут быть пустыми');
         } else {
-            let url = `https://api.green-api.com/waInstance${value.idInstance}/getStateInstance/${value.apiTokenInstance}`;
-            fetchApi(url)
-                .then((data) => {
-                    if (data.stateInstance) {
-                        utilizeLocalStorage('user', value);
-                        setAuth(value);
-                    }
-                })
-                .catch(() => setError('Нет такого пользователя'));
+            fetchApi({
+                path: EFetchTypes.ACCOUNT_STATE,
+                token: { idInstance: value.idInstance, apiTokenInstance: value.apiTokenInstance },
+            }).then((data) => {
+                if (data.stateInstance === 'authorized') {
+                    utilizeLocalStorage('user', value);
+                    setAuth(value);
+                } else {
+                    setError('Мы не смогли найти пользователя:(');
+                }
+            });
         }
+        setValue({ idInstance: '', apiTokenInstance: '' });
     };
 
     const changeIdInstance = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +42,10 @@ const Authorization = () => {
 
     const changeApiTokenInstance = (e: ChangeEvent<HTMLInputElement>) => {
         setValue((prev) => ({ ...prev, apiTokenInstance: e.target.value }));
+    };
+
+    const handleFocus = () => {
+        setError('');
     };
 
     useEffect(() => {
@@ -49,21 +57,27 @@ const Authorization = () => {
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                <InputField placeholder='idInstance' value={value.idInstance} handle={changeIdInstance} />
+                <InputField
+                    placeholder='idInstance'
+                    value={value.idInstance}
+                    handle={changeIdInstance}
+                    handleFocus={handleFocus}
+                />
                 <InputField
                     placeholder='apiTokenInstance'
                     value={value.apiTokenInstance}
                     handle={changeApiTokenInstance}
-                    // hanldeFocus={}
-                    // error={}
+                    handleFocus={handleFocus}
                 />
-                <Button variant='contained' size='large' type='submit'>
+                <Button
+                    variant='contained'
+                    size='large'
+                    type='submit'
+                    disabled={!value.idInstance || !value.apiTokenInstance}>
                     Авторизоваться
                 </Button>
             </Form>
-            {error ? <div>{error}</div> : ''}
+            {error ? <ErrorText error={error} /> : ''}
         </>
     );
 };
-
-export default Authorization;
