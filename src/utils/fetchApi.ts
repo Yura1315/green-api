@@ -1,9 +1,42 @@
 
-export const fetchApi = async (url: string) => {
+type FetchApiType = {
+    url?: string,
+    method?: string,
+    data?: string,
+    path: string,
+    token: {
+        idInstance: string, 
+        apiTokenInstance: string}
+}
+
+export enum EFetchTypes {
+    BASE_URL = 'https://api.green-api.com/waInstance',
+    ACCOUNT_STATE = 'getStateInstance',
+    SEND_MESSAGE = 'sendMessage',
+    GET_CHAT_HISTORY = 'getChatHistory',
+}
+
+export const fetchApi = async (
+    {url = EFetchTypes.BASE_URL, method='GET', data, path, token: {idInstance, apiTokenInstance} }: FetchApiType ) => {
     try {
-        const response = await fetch(url);
-        return await response.json();
-    } catch (error) {
-        console.log('Oops')
+        url = url + idInstance + '/' + path + '/' + apiTokenInstance
+        const response = await fetch(url, {
+            method: method,
+            body: JSON.stringify(data)
+        })
+
+        if(response.status >= 200 && response.status <= 300) {
+            const data =  await response.json();
+            return data
+        }
+
+        return {
+            status: response.status,
+            message: response.statusText
+        }
+
+    } catch (err) {
+        console.log(err)
     }
 }
+

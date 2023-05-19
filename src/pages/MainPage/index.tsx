@@ -1,5 +1,5 @@
+import { Authorization } from '../../components/Authorization';
 import { MainPageWrapper } from './style';
-import Authorization from '../../components/Authorization';
 
 const MainPage = () => {
     return (
