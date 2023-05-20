@@ -19,3 +19,10 @@ export const UserDataWrapper = styled("div")({
 		margin: "5px",
 	},
 });
+
+export const contactStyle ={
+	width: "50px",
+	height: "50px",
+	borderRadius: "10px",
+	marginLeft: "15px",
+}

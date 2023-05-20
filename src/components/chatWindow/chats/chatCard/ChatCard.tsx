@@ -1,38 +1,47 @@
 import { ChatCardWrapper, UserDataWrapper } from "./style";
-import { useContext, useEffect, useState } from "react";
-import { authContext } from "../../../../common/authContext";
-
+import { useEffect, useState } from "react";
+import { fetchApi, EFetchTypes } from "../../../../utils/fetchApi";
+import { Avatar } from "@mui/material";
 interface CardProps {
 	id: string;
 }
 
 export const ChatCard = ({ id }: CardProps) => {
-	const { auth } = useContext(authContext);
+	const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
 	const [contact, setContact] = useState<any>([]);
 	useEffect(() => {
-		const test = JSON.stringify({ chatId: id });
-		fetch(
-			`https://api.green-api.com/waInstance${auth.idInstance}/GetContactInfo/${auth.apiTokenInstance}`,
-			{
-				method: "POST",
-				body: test,
-			}
-		)
-			.then((response) => response.json())
-			.then((data) => {
-				setContact((prevContact: any) => (prevContact = data));
-			});
-	}, [auth.apiTokenInstance, auth.idInstance, id]);
+		const test = { chatId: id };
+		fetchApi({
+			path: EFetchTypes.GET_CONTACT_INFO,
+			token: {
+				idInstance: idInstance,
+				apiTokenInstance: apiTokenInstance,
+			},
+			method: "POST",
+			data: test,
+		}).then((data) => {
+			setContact((prevContact: any) => (prevContact = data));
+		});
+	}, [apiTokenInstance, idInstance, id]);
 	console.log(contact);
 	return (
 		<ChatCardWrapper>
 			{contact ? (
 				<>
-					<img
-						src={contact.avatar || null}
-						alt={"Нет аватара"}
-						style={{ width: "50px", height: "50px", borderRadius: "10px",marginLeft:'15px' }}
-					/>
+					{contact.avatar ? (
+						<img
+							src={contact.avatar || null}
+							alt={"Нет аватара"}
+							style={{
+								width: "50px",
+								height: "50px",
+								borderRadius: "10px",
+								marginLeft: "15px",
+							}}
+						/>
+					) : (
+						<Avatar sx={{marginLeft:'15px'}}>A</Avatar>
+					)}
 					<UserDataWrapper>
 						<p>{contact.name}</p>
 						<p>{}</p>
