@@ -1,19 +1,24 @@
 import Button from "@mui/material/Button";
-import { useContext, useEffect, useState } from "react";
-import { authContext } from "../../../common/authContext";
-import { fetchApi } from "../../../utils/fetchApi";
+import {  useEffect, useState } from "react";
+import { fetchApi, EFetchTypes } from "../../../utils/fetchApi";
 import { ChatsWrapper, InputWrapper, inputStyle } from "./style";
 import { ChatCard } from "./chatCard/ChatCard";
 
 export const Chats = () => {
 	const [users, setUsers] = useState([]);
-	const { auth } = useContext(authContext);
-	let url = `https://api.green-api.com/waInstance${auth.idInstance}/getChats/${auth.apiTokenInstance}`;
-	useEffect(() => { 	
-		fetchApi(url).then((data) => {
+	const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
+	let url = `https://api.green-api.com/waInstance${idInstance}/getChats/${apiTokenInstance}`;
+	useEffect(() => {
+		fetchApi({
+			path: EFetchTypes.GET_CHATS,
+			token: {
+				idInstance: idInstance,
+				apiTokenInstance: apiTokenInstance,
+			},
+		}).then((data) => {
 			setUsers((prevUsers) => (prevUsers = data));
 		});
-	}, [url]);
+	}, [apiTokenInstance, idInstance, url]);
 	console.log(users)
 	return (
 		<ChatsWrapper>
