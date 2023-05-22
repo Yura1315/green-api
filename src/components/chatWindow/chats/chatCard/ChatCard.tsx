@@ -1,16 +1,14 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { fetchApi, EFetchTypes } from "../../../../utils/fetchApi";
-import { authContext } from '../../../../common/authContext';
+import { authContext } from "../../../../common/authContext";
 import { ChatCardWrapper, UserDataWrapper } from "./style";
 import { Avatar } from "@mui/material";
-interface CardProps {
-	id: string;
-}
+import { ICardProps, IContact } from "./types";
 
-export const ChatCard = ({ id }: CardProps) => {
-	const { auth, setAuth } = useContext(authContext);
+export const ChatCard = ({ id }: ICardProps) => {
+	const { setAuth } = useContext(authContext);
 	const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
-	const [contact, setContact] = useState<any>([]);
+	const [contact, setContact] = useState<IContact>();
 	useEffect(() => {
 		const test = { chatId: id };
 		fetchApi({
@@ -22,19 +20,21 @@ export const ChatCard = ({ id }: CardProps) => {
 			method: "POST",
 			data: test,
 		}).then((data) => {
-			setContact((prevContact: any) => (prevContact = data));
+			setContact((prevContact) => (prevContact = data));
 		});
 	}, [apiTokenInstance, idInstance, id]);
-	
+
 	return (
-		<ChatCardWrapper onClick={()=>{
-			setAuth((prev)=>({...prev,chatId:contact.chatId}))
-			}}>
+		<ChatCardWrapper
+			onClick={() => {
+				setAuth((prev) => ({ ...prev, chatId: contact?.chatId }));
+			}}
+		>
 			{contact ? (
 				<>
 					{contact.avatar ? (
 						<img
-							src={contact.avatar || null}
+							src={contact.avatar || undefined}
 							alt={"Нет аватара"}
 							style={{
 								width: "50px",
@@ -44,7 +44,7 @@ export const ChatCard = ({ id }: CardProps) => {
 							}}
 						/>
 					) : (
-						<Avatar sx={{marginLeft:'15px'}}>A</Avatar>
+						<Avatar sx={{ marginLeft: "15px" }}>A</Avatar>
 					)}
 					<UserDataWrapper>
 						<p>{contact.name}</p>

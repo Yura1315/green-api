@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import { fetchApi, EFetchTypes } from "../../../utils/fetchApi";
 import { ChatsWrapper, InputWrapper, inputStyle } from "./style";
 import { ChatCard } from "./chatCard/ChatCard";
+import { IUser } from "./types";
+
+
 
 export const Chats = () => {
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState<IUser[]>([]);
 	const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
 	let url = `https://api.green-api.com/waInstance${idInstance}/getChats/${apiTokenInstance}`;
 	useEffect(() => {
@@ -19,6 +22,7 @@ export const Chats = () => {
 			setUsers((prevUsers) => (prevUsers = data));
 		});
 	}, [apiTokenInstance, idInstance, url]);
+	
 	return (
 		<ChatsWrapper>
 			<InputWrapper>
@@ -30,7 +34,7 @@ export const Chats = () => {
 				<Button>Search</Button>
 			</InputWrapper>
 			{users ? (
-				users.map((user: any) => {
+				users.map((user: IUser) => {
 					return <ChatCard key={user.id} id={user.id} />;
 				})
 			) : (
