@@ -1,11 +1,14 @@
-import { ChatWindow } from "../../components/chatWindow/ChatWindow";
+import { ChatsProvider } from '../../common/contexts/chatContext/chatContext';
+import { ChatWindow } from '../../components/chatWindow/ChatWindow';
 
 const ChatPage = () => {
-	return (
-		<>
-			<ChatWindow />
-		</>
-	);
+    return (
+        <>
+            <ChatsProvider>
+                <ChatWindow />
+            </ChatsProvider>
+        </>
+    );
 };
 
 export default ChatPage;
