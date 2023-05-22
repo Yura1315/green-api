@@ -4,6 +4,7 @@ export const ChatCardWrapper = styled("div")({
 	display: "flex",
 	alignItems: "center",
 	borderBottom:'1px solid #f0f2f5',
+	cursor: 'pointer',
 	"&:hover": {
 		backgroundColor: "#f0f2f5",
 	},
@@ -26,3 +27,9 @@ export const contactStyle ={
 	borderRadius: "10px",
 	marginLeft: "15px",
 }
+
+
+export const ContactName = styled("div")({
+	fontSize: '16px',
+	fontWeight: 400
+});

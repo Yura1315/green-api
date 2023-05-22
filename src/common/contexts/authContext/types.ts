@@ -1,9 +1,10 @@
 import {ReactNode} from 'react'
 
 export type AuthType = {
-	chatId: any;
     idInstance: string;
     apiTokenInstance: string;
+    name: string;
+    avatar: string;
 };
 
 export type ChildrenProps = {

@@ -1,4 +1,4 @@
-export  interface IMassages {
+export  interface IMessages {
 	chatId: string;
 	idMessage: string;
 	sendByApi: boolean;

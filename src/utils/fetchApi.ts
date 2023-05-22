@@ -17,6 +17,7 @@ export enum EFetchTypes {
 	GET_CHATS = "getChats",
 	GET_CONTACT_INFO = "getContactInfo",
 	GET_MESSAGES='getChatHistory',
+	GET_SETTINGS='getSettings'
 }
 
 export const fetchApi = async ({

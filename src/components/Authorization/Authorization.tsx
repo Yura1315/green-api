@@ -2,13 +2,13 @@ import { ChangeEvent, useEffect, useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import { Form } from './style';
 import { EFetchTypes, fetchApi } from '../../utils/fetchApi';
-import { authContext } from '../../common/authContext';
+import { authContext } from '../../common/contexts/authContext/authContext';
 import { useNavigate } from 'react-router-dom';
-import { defaultAuth } from '../../common/const';
-import { AuthType } from '../../common/types';
 import { utilizeLocalStorage } from '../../utils/saveToLocalStorage';
 import { ErrorText } from './ErrorText';
 import { InputField } from '../InputField';
+import { AuthType } from '../../common/contexts/authContext/types';
+import { defaultAuth } from '../../common/contexts/authContext/const';
 
 export const Authorization = () => {
     const { auth, setAuth } = useContext(authContext);
@@ -24,16 +24,38 @@ export const Authorization = () => {
             fetchApi({
                 path: EFetchTypes.ACCOUNT_STATE,
                 token: { idInstance: value.idInstance, apiTokenInstance: value.apiTokenInstance },
-            }).then((data) => {
-                if (data.stateInstance === 'authorized') {
-                    utilizeLocalStorage('user', value);
-                    setAuth(value);
-                } else {
-                    setError('Мы не смогли найти пользователя:(');
-                }
-            });
+            })
+                .then((data) => {
+                    if (data.stateInstance !== 'authorized') {
+                        setError('Мы не смогли найти пользователя:(');
+                    }
+                })
+                .then((data) => {
+                    fetchApi({
+                        path: EFetchTypes.GET_SETTINGS,
+                        token: { idInstance: value.idInstance, apiTokenInstance: value.apiTokenInstance },
+                    }).then((data) => {
+                        const chatId = { chatId: data.wid };
+                        fetchApi({
+                            method: 'POST',
+                            path: EFetchTypes.GET_CONTACT_INFO,
+                            token: { idInstance: value.idInstance, apiTokenInstance: value.apiTokenInstance },
+                            data: chatId,
+                        }).then((data) => {
+                            let user = {
+                                idInstance: value.idInstance,
+                                apiTokenInstance: value.apiTokenInstance,
+                                name: data.name,
+                                avatar: data.avatar,
+                            };
+
+                            utilizeLocalStorage('user', user);
+                            setAuth(user);
+                        });
+                    });
+                });
         }
-        setValue({ idInstance: '', apiTokenInstance: '',chatId:'' });
+        setValue((prev) => ({ ...prev, idInstance: '', apiTokenInstance: '' }));
     };
 
     const changeIdInstance = (e: ChangeEvent<HTMLInputElement>) => {
