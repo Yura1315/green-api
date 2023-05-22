@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchApi, EFetchTypes } from "../../../utils/fetchApi";
 import { ChatsWrapper, InputWrapper, inputStyle } from "./style";
 import { ChatCard } from "./chatCard/ChatCard";
@@ -19,7 +19,6 @@ export const Chats = () => {
 			setUsers((prevUsers) => (prevUsers = data));
 		});
 	}, [apiTokenInstance, idInstance, url]);
-	console.log(users)
 	return (
 		<ChatsWrapper>
 			<InputWrapper>

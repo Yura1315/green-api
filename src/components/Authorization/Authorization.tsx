@@ -33,7 +33,7 @@ export const Authorization = () => {
                 }
             });
         }
-        setValue({ idInstance: '', apiTokenInstance: '' });
+        setValue({ idInstance: '', apiTokenInstance: '',chatId:'' });
     };
 
     const changeIdInstance = (e: ChangeEvent<HTMLInputElement>) => {

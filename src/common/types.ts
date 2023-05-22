@@ -1,6 +1,7 @@
 import {ReactNode} from 'react'
 
 export type AuthType = {
+	chatId: any;
     idInstance: string;
     apiTokenInstance: string;
 };

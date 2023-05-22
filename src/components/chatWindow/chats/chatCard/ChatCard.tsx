@@ -1,12 +1,14 @@
-import { ChatCardWrapper, UserDataWrapper } from "./style";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { fetchApi, EFetchTypes } from "../../../../utils/fetchApi";
+import { authContext } from '../../../../common/authContext';
+import { ChatCardWrapper, UserDataWrapper } from "./style";
 import { Avatar } from "@mui/material";
 interface CardProps {
 	id: string;
 }
 
 export const ChatCard = ({ id }: CardProps) => {
+	const { auth, setAuth } = useContext(authContext);
 	const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
 	const [contact, setContact] = useState<any>([]);
 	useEffect(() => {
@@ -23,9 +25,11 @@ export const ChatCard = ({ id }: CardProps) => {
 			setContact((prevContact: any) => (prevContact = data));
 		});
 	}, [apiTokenInstance, idInstance, id]);
-	console.log(contact);
+	
 	return (
-		<ChatCardWrapper>
+		<ChatCardWrapper onClick={()=>{
+			setAuth((prev)=>({...prev,chatId:contact.chatId}))
+			}}>
 			{contact ? (
 				<>
 					{contact.avatar ? (

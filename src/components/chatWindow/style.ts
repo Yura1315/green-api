@@ -7,6 +7,6 @@ export const ChatWindowWrapper = styled("div")({
 	maxWidth: "929px",
 	width: "100%",
 	height: "100%",
-	background: "#f0f2f5 ",
+	background: "white ",
     zIndex:'100',
 });
