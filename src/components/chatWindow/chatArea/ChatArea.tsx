@@ -38,7 +38,7 @@ export const ChatArea = () => {
             )}
             <AreaContainer>
                 {messages.length > 0 ? (
-                    messages.map((message: any) => {
+                    messages.map((message: IMessages) => {
                         return <Message key={message.idMessage} type={message.type} text={message.textMessage} />;
                     })
                 ) : (

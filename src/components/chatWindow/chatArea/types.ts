@@ -5,6 +5,6 @@ export  interface IMessages {
 	statusMessage: string;
 	textMessage: string;
 	timestamp: number;
-	type: number;
+	type: string;
 	typeMessage: string;
 }
