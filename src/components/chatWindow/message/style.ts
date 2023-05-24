@@ -19,5 +19,5 @@ export const MessageWrapper = styled("div")({
 export const MessageText = styled("p")({
     padding: 0,
     margin: 0,
-    wordBreak: 'break-all'
+    wordBreak: 'word-break'
 });

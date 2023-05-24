@@ -48,9 +48,10 @@ export const Authorization = () => {
                                 name: data.name,
                                 avatar: data.avatar,
                             };
-
-                            utilizeLocalStorage('user', user);
-                            setAuth(user);
+                            if (!data.status) {
+                                utilizeLocalStorage('user', user);
+                                setAuth(user);
+                            }
                         });
                     });
                 });

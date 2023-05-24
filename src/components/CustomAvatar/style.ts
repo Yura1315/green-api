@@ -5,7 +5,7 @@ export const AvatarWrapper = styled("div")({
     width: '40px',
     borderRadius: '50%',
     overflow: 'hidden',
-    marginLeft: '10px'
+    marginLeft: '10px',
 });
 
 

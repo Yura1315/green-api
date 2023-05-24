@@ -5,22 +5,7 @@ import { Avatar } from '@mui/material';
 import { chatContext } from '../../../../common/contexts/chatContext/chatContext';
 import { CustomAvatar } from '../../../CustomAvatar/CustomAvatar';
 import { ICardProps, IContact } from './types';
-
-export const defaultContact: IContact = {
-    avatar: '',
-    category: '',
-    chatId: '',
-    description: '',
-    email: '',
-    isArchive: false,
-    isDisappearing: false,
-    isMute: false,
-    lastSeen: '',
-    messageExpiration: 0,
-    muteExpiration: '',
-    name: '',
-    products: [],
-};
+import { defaultContact } from './const';
 
 export const ChatCard = ({ id }: ICardProps) => {
     const { setChat } = useContext(chatContext);
