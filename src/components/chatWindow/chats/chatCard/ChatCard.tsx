@@ -37,7 +37,7 @@ export const ChatCard = ({ id }: ICardProps) => {
             method: 'POST',
             data: test,
         }).then((data) => {
-            setContact((prevContact: any) => (prevContact = data));
+            setContact((prevContact: IContact) => (prevContact = data));
         });
     }, [apiTokenInstance, idInstance, id]);
 

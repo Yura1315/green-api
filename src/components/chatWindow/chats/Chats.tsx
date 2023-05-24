@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { useContext, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { fetchApi, EFetchTypes } from '../../../utils/fetchApi';
 import { ChatsWrapper, InputWrapper, UserInfoWrapper, inputStyle } from './style';
 import { ChatCard } from './chatCard/ChatCard';
@@ -32,7 +32,7 @@ export const Chats = () => {
                 <Button>Search</Button>
             </InputWrapper>
             {users ? (
-                users.map((user: any) => {
+                users.map((user: IUser) => {
                     return <ChatCard key={user.id} id={user.id} />;
                 })
             ) : (
