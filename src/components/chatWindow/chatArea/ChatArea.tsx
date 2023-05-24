@@ -11,7 +11,7 @@ export const ChatArea = () => {
     const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
     const [messages, setMassages] = useState<IMessages[]>([]);
     useEffect(() => {
-        const test = { chatId: chat.chatId, count: 10 };
+        const test = { chatId: chat.chatId, count: 20 };
         fetchApi({
             path: EFetchTypes.GET_MESSAGES,
             token: {
@@ -24,7 +24,6 @@ export const ChatArea = () => {
             setMassages((prevMessage: SetStateAction<IMessages[]>) => (prevMessage = data));
         });
     }, [apiTokenInstance, chat.chatId, idInstance]);
-    console.log(messages);
 
     return (
         <ChatAreaWrapper>
@@ -37,13 +36,11 @@ export const ChatArea = () => {
                 <ChatAreaTitle />
             )}
             <AreaContainer>
-                {messages.length > 0 ? (
-                    messages.map((message: IMessages) => {
-                        return <Message key={message.idMessage} type={message.type} text={message.textMessage} />;
-                    })
-                ) : (
-                    <p>'Пусто'</p>
-                )}
+                {messages.length > 0
+                    ? messages.map((message: IMessages) => {
+                          return <Message key={message.idMessage} type={message.type} text={message.textMessage} />;
+                      })
+                    : ''}
             </AreaContainer>
         </ChatAreaWrapper>
     );
