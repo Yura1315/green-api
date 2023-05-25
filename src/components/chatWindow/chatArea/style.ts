@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
+
 
 export const ChatAreaWrapper = styled("div")({
 	display: "flex",
