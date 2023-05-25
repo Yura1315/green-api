@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ChatCard } from '../chatCard/ChatCard';
+import { ChatCard } from '../ChatCard/ChatCard';
 import { IUser } from '../types';
 import { EFetchTypes, fetchApi } from '../../../../utils/fetchApi';
 

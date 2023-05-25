@@ -4,8 +4,8 @@ import { ChatAreaWrapper, ChatAreaTitle, AreaContainer } from "./style";
 import { IMessages } from "./types";
 import { chatContext } from "../../../common/contexts/chatContext/chatContext";
 import { CustomAvatar } from "../../CustomAvatar/CustomAvatar";
-import { Message } from "../message";
-import { InputPhoneComponent } from "./InputPhoneComponent";
+import { Message } from "../Message";
+import { InputMassegeComponent } from "./MassegeInput/InputPhoneComponent";
 
 export const ChatArea = () => {
 	const { chat } = useContext(chatContext);
@@ -26,8 +26,7 @@ export const ChatArea = () => {
 				(prevMessage: SetStateAction<IMessages[]>) => (prevMessage = data)
 			);
 		});
-	}, [apiTokenInstance, chat.chatId, idInstance]);
-	console.log(messages);
+	}, [apiTokenInstance, chat.chatId, idInstance, ]);
 
 	return (
 		<ChatAreaWrapper>
@@ -58,7 +57,7 @@ export const ChatArea = () => {
 					<p>'Пусто'</p>
 				)}
 			</AreaContainer>
-			<InputPhoneComponent />
+			<InputMassegeComponent />
 		</ChatAreaWrapper>
 	);
 };

@@ -9,16 +9,17 @@ type FetchApiType = {
 	};
 };
 
+
 export enum EFetchTypes {
-	BASE_URL = "https://api.green-api.com/waInstance",
-	ACCOUNT_STATE = "getStateInstance",
-	SEND_MESSAGE = "sendMessage",
-	GET_CHAT_HISTORY = "getChatHistory",
-	GET_CHATS = "getChats",
-	GET_CONTACT_INFO = "getContactInfo",
-	GET_MESSAGES='getChatHistory',
-	GET_SETTINGS='getSettings',
-	GET_STATE_INSTANCE='sendMessage' ,
+    BASE_URL = "https://api.green-api.com/waInstance",
+    ACCOUNT_STATE = "getStateInstance",
+    SEND_MESSAGE = "sendMessage",
+    GET_CHAT_HISTORY = "getChatHistory",
+    GET_CHATS = "getChats",
+    GET_CONTACT_INFO = "getContactInfo",
+    GET_MESSAGES = 'getChatHistory',
+    GET_SETTINGS = 'getSettings',
+    CHECK_WHATSAPP = "checkWhatsapp"
 }
 
 export const fetchApi = async ({
