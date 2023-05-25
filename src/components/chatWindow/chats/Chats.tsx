@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { fetchApi, EFetchTypes } from '../../../utils/fetchApi';
 import { ChatsWrapper, UserInfoWrapper } from './style';
-import { ChatCard } from './chatCard/ChatCard';
+import { ChatCard } from './ChatCard/ChatCard';
 import { CustomAvatar } from '../../CustomAvatar/CustomAvatar';
 import { IUser } from './types';
-import { ChatSearch } from './chatSearch/ChatSearch';
-import { ChatSearchResult } from './chatSearchResult/ChatSearchResult';
+import { ChatSearch } from './ChatSearch/ChatSearch';
+import { ChatSearchResult } from './ChatSearchResult/ChatSearchResult';
 
 export const Chats = () => {
     const [users, setUsers] = useState<IUser[]>([]);
