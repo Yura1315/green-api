@@ -1,4 +1,4 @@
-type FetchApiType = {
+export type FetchApiType = {
 	url?: string;
 	method?: string;
 	data?: object;

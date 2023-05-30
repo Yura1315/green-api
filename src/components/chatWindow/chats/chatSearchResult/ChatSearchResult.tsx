@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ChatCard } from '../ChatCard/ChatCard';
 import { IUser } from '../types';
 import { EFetchTypes, fetchApi } from '../../../../utils/fetchApi';
+import { ChatCard } from '../chatCard/ChatCard';
 
 type ChatSearchResultPropsType = {
     search: string;
