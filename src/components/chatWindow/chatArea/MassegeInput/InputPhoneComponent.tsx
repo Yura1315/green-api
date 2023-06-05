@@ -4,7 +4,11 @@ import { Button } from "@mui/material";
 import { EFetchTypes, fetchApi } from "../../../../utils/fetchApi";
 import { chatContext } from "../../../../common/contexts/chatContext/chatContext";
 
-export const InputMassegeComponent = () => {
+interface I {
+	valueOp:any
+}
+
+export const InputMassegeComponent = ({valueOp}:I) => {
 	const { chat } = useContext(chatContext);
 	const [value, setValue] = useState("");
 	const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
@@ -12,8 +16,8 @@ export const InputMassegeComponent = () => {
 		chatId: chat.chatId,
 		message: value,
 	};
-	const fetching = () => {
-		fetchApi({
+	const  fetching = async() => {
+	await	 fetchApi({
 			path: EFetchTypes.SEND_MESSAGE,
 			token: {
 				idInstance: idInstance,
@@ -23,6 +27,7 @@ export const InputMassegeComponent = () => {
 			data: dataBody,
 		});
 		setValue("");
+		setTimeout(()=>valueOp.setValue(value),3000)
 		chat.avatar =''
 	};
 	return (

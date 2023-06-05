@@ -9,6 +9,7 @@ import { InputMassegeComponent } from "./MassegeInput/InputPhoneComponent";
 
 export const ChatArea = () => {
 	const { chat } = useContext(chatContext);
+	const [i,setI] = useState('')
 	const { idInstance, apiTokenInstance } = JSON.parse(localStorage.user);
 	const [messages, setMassages] = useState<IMessages[]>([]);
 	useEffect(() => {
@@ -26,7 +27,7 @@ export const ChatArea = () => {
 				(prevMessage: SetStateAction<IMessages[]>) => (prevMessage = data)
 			);
 		});
-	}, [apiTokenInstance, chat.chatId, idInstance, ]);
+	}, [apiTokenInstance, chat.chatId, idInstance,i ]);
 
 	return (
 		<ChatAreaWrapper>
@@ -47,6 +48,7 @@ export const ChatArea = () => {
 						.map((message: IMessages) => {
 							return (
 								<Message
+									
 									key={message.idMessage}
 									type={message.type}
 									text={message.textMessage}
@@ -57,7 +59,10 @@ export const ChatArea = () => {
 					<p>'Пусто'</p>
 				)}
 			</AreaContainer>
-			<InputMassegeComponent />
+			<InputMassegeComponent valueOp={
+									{	value:i,
+										setValue: setI,}
+									}/>
 		</ChatAreaWrapper>
 	);
 };
